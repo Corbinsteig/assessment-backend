@@ -8,7 +8,7 @@ app.use(cors());
 
 app.use(express.json()); // When we want to be able to accept JSON.
 
-const {getQuotes, createQuote} = require('./controller')
+const {getQuotes, createQuote, deleteQuote} = require('./controller')
 
 
 
@@ -64,7 +64,7 @@ let randomIndex = Math.floor(Math.random() * randoms.length);
 })
 
 app.get('/api/quotes', getQuotes)
-// app.delete('/api/quotes/:id', deleteQuotes)
+app.delete('/api/quotes/:quote', deleteQuote)
 app.post('/api/quotes', createQuote)
 // app.put('/api/quotes/:id', updateQuotes)
 

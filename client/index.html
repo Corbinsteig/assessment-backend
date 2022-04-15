@@ -64,6 +64,7 @@
 
       const getAllQuotes = () => axios.get(baseURL).then(quotesCallback).catch(errCallback)
       const createQuote = body => axios.post(baseURL, body).then(quotesCallback).catch(errCallback)
+      const deleteQuote = quote => axios.delete(`${baseURL}/${quote}`).then(quotesCallback).catch(errCallback)
 
       function submitHandler(e) {
        e.preventDefault()
@@ -87,6 +88,7 @@ function createQuoteCard(quote) {
     quoteCard.innerHTML = `
     <p class="quote-quote">${quote.quote}</p>
     <p class="quote-person">${quote.person}</p>
+    <button onclick="deleteQuote(${quote.quote})">delete</button>
     `
 
 

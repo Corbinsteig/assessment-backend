@@ -4,7 +4,7 @@ module.exports = {
     getQuotes: (req, res) => {
         res.status(200).send(quotes)
     },
-    deleteQuotes: (req, res) => {
+    deleteQuote: (req, res) => {
         let index = quotes.findIndex(elem => elem.id === +req.params.id)
         quotes.splice(index, 1)
         res.status(200).send(quotes)
