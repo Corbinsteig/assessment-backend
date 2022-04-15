@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Back End Assessment</title>
+  </head>
+  <body class="container">
+    <h1>DreamBoard</h1>
+    <button id="complimentButton">Get a Compliment</button>
+    <button id="fortuneButton">Get a Fortune</button>
+    <button id="carButton">Manifest a Car</button>
+    <button id="randomButton">Manifest a Mansion</button>
+    <form>
+      <input 
+          type='text'
+          id="quote"
+          placeholder="Enter Quote"/>
+      <input 
+          type='text'
+          id="person"
+          placeholder='Enter Person'/>
+          </div>
+      <button>add quote</button>
+  </form>
+
+    <section id="quotes-container"></section>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      document.getElementById("complimentButton").onclick = function () {
+        axios.get("http://localhost:4000/api/compliment/")
+            .then(function (response) {
+              const data = response.data;
+              alert(data);
+            });
+      };
+      document.getElementById("fortuneButton").onclick = function () {
+        axios.get("http://localhost:4000/api/fortune/")
+            .then(function (response) {
+              const data = response.data;
+              alert(data);
+            });
+      };
+      document.getElementById("carButton").onclick = function () {
+        axios.get("http://localhost:4000/api/car/")
+            .then(function (response) {
+              const data = response.data;
+              alert(data);
+            });
+      };
+      document.getElementById("randomButton").onclick = function () {
+        axios.get("http://localhost:4000/api/random/")
+            .then(function (response) {
+              const data = response.data;
+              alert(data);
+            });
+      };
+      const quotesContainer = document.querySelector('#quotes-container')
+      const form = document.querySelector('form')
+      
+      const baseURL = "http://localhost:4000/api/quotes/"
+
+      const quotesCallback = ({ data: quotes }) => displayQuotes(quotes)
+      const errCallback = err => console.log(err.response.data)
+
+      const getAllQuotes = () => axios.get(baseURL).then(quotesCallback).catch(errCallback)
+      const createQuote = body => axios.post(baseURL, body).then(quotesCallback).catch(errCallback)
+
+      function submitHandler(e) {
+       e.preventDefault()
+
+    let quote = document.querySelector('#quote')
+    let person = document.querySelector('#person')
+
+    let bodyObj = {
+        quote: quote.value,
+        person: person.value, 
+    }
+
+    createQuote(bodyObj)
+
+    quote.value = ''
+    person.value = ''
+}
+function createQuoteCard(quote) {
+    const quoteCard = document.createElement('div')
+    quoteCard.classList.add('quote-card')
+    quoteCard.innerHTML = `
+    <p class="quote-quote">${quote.quote}</p>
+    <p class="quote-person">${quote.person}</p>
+    `
+
+
+    quotesContainer.appendChild(quoteCard)
+}
+function displayQuotes(arr) {
+    quotesContainer.innerHTML = ``
+    for (let i = 0; i < arr.length; i++) {
+        createQuoteCard(arr[i])
+    }
+}
+form.addEventListener('submit', submitHandler)
+
+getAllQuotes()
+
+    </script>
+  </body>
+</html>
