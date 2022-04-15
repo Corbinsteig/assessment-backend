@@ -57,14 +57,14 @@
       const quotesContainer = document.querySelector('#quotes-container')
       const form = document.querySelector('form')
       
-      const baseURL = "http://localhost:4000/api/quotes/"
+      const baseURL = `http://localhost:4000/api/quotes`
 
       const quotesCallback = ({ data: quotes }) => displayQuotes(quotes)
       const errCallback = err => console.log(err.response.data)
 
       const getAllQuotes = () => axios.get(baseURL).then(quotesCallback).catch(errCallback)
       const createQuote = body => axios.post(baseURL, body).then(quotesCallback).catch(errCallback)
-      const deleteQuote = quote => axios.delete(`${baseURL}/${quote}`).then(quotesCallback).catch(errCallback)
+      const deleteQuote = id => axios.delete(`${baseURL}/${id}`).then(quotesCallback).catch(errCallback)
 
       function submitHandler(e) {
        e.preventDefault()
@@ -88,7 +88,7 @@ function createQuoteCard(quote) {
     quoteCard.innerHTML = `
     <p class="quote-quote">${quote.quote}</p>
     <p class="quote-person">${quote.person}</p>
-    <button onclick="deleteQuote(${quote.quote})">delete</button>
+    <button onclick="deleteQuote(${quote.id})">delete</button>
     `
 
 

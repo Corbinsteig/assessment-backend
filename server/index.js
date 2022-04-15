@@ -64,8 +64,8 @@ let randomIndex = Math.floor(Math.random() * randoms.length);
 })
 
 app.get('/api/quotes', getQuotes)
-app.delete('/api/quotes/:quote', deleteQuote)
+app.delete('/api/quotes/:id', deleteQuote)
 app.post('/api/quotes', createQuote)
 // app.put('/api/quotes/:id', updateQuotes)
 
-app.listen(4000, () => console.log("Server running on 4000"));
+app.listen(4000, () => {console.log("Server running on 4000")});

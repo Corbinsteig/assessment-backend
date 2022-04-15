@@ -17,5 +17,5 @@ module.exports = {
         }
         quotes.push(newQuote);
         res.status(200).send(quotes)
-    },
+    }
 }
